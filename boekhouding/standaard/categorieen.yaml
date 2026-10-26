@@ -1,0 +1,131 @@
+# Standaardcategorieën voor een Belgisch gezin.
+# Deze lijst wordt enkel gebruikt om een NIEUWE database te vullen. Daarna beheer je
+# categorieën in de app (pagina "Categorieën & regels") of via de Excel-export.
+#
+# soort bepaalt hoe een categorie meetelt in de rapporten:
+#   inkomst  -> telt mee als inkomsten
+#   uitgave  -> telt mee als uitgaven (terugbetalingen in dezelfde categorie verminderen de uitgave)
+#   sparen   -> geld dat opzij gezet of belegd wordt (geen uitgave)
+#   transfer -> verschuiving tussen eigen rekeningen (telt nergens mee)
+
+- hoofdcategorie: Inkomsten
+  soort: inkomst
+  subcategorieen:
+    - Loon en vergoedingen
+    - Inkomsten zelfstandige activiteit
+    - Kindergeld (Groeipakket)
+    - Terugbetalingen (ziekenfonds, verzekering)
+    - Belastingteruggave
+    - Interesten en dividenden
+    - Andere inkomsten
+
+- hoofdcategorie: Wonen
+  soort: uitgave
+  subcategorieen:
+    - Hypotheek of huur
+    - Energie
+    - Water
+    - Internet en telefonie
+    - Onderhoud en doe-het-zelf
+    - Inrichting en huishoudtoestellen
+    - Woningverzekering
+    - Onroerende voorheffing
+    - Afval en gemeentebelastingen
+
+- hoofdcategorie: Boodschappen
+  soort: uitgave
+  subcategorieen:
+    - Supermarkt
+    - Bakker, slager en speciaalzaken
+    - Drogisterij en huishouden
+
+- hoofdcategorie: Mobiliteit
+  soort: uitgave
+  subcategorieen:
+    - Brandstof en laden
+    - Onderhoud auto
+    - Autoverzekering
+    - Verkeersbelasting
+    - Openbaar vervoer
+    - Parkeren en tol
+    - Fiets
+    - Autolening of leasing
+
+- hoofdcategorie: Gezondheid
+  soort: uitgave
+  subcategorieen:
+    - Dokter en ziekenhuis
+    - Apotheek
+    - Ziekenfonds
+    - Hospitalisatieverzekering
+    - Tandarts en optiek
+
+- hoofdcategorie: Kinderen
+  soort: uitgave
+  subcategorieen:
+    - Kinderopvang
+    - School
+    - Kleding kinderen
+    - Speelgoed en hobby's
+    - Jeugdbeweging en sport
+
+- hoofdcategorie: Persoonlijk
+  soort: uitgave
+  subcategorieen:
+    - Kleding en schoenen
+    - Kapper en verzorging
+    - Opleiding
+
+- hoofdcategorie: Vrije tijd
+  soort: uitgave
+  subcategorieen:
+    - Restaurants en cafés
+    - Afhaal en levering
+    - Uitstappen en cultuur
+    - Reizen en vakantie
+    - Abonnementen en streaming
+    - Sport
+    - Hobby
+    - Elektronica en gadgets
+
+- hoofdcategorie: Financieel
+  soort: uitgave
+  subcategorieen:
+    - Bankkosten
+    - Verzekeringen (overige)
+    - Personenbelasting
+    - Leningen
+    - Boetes
+
+- hoofdcategorie: Giften en cadeaus
+  soort: uitgave
+  subcategorieen:
+    - Cadeaus
+    - Goede doelen
+
+- hoofdcategorie: Huisdieren
+  soort: uitgave
+  subcategorieen:
+    - Voeding en verzorging
+    - Dierenarts
+
+- hoofdcategorie: Diversen
+  soort: uitgave
+  subcategorieen:
+    - Online aankopen
+    - Cash afhaling
+    - Kredietkaart (zonder detail)
+    - Overige uitgaven
+
+- hoofdcategorie: Sparen en beleggen
+  soort: sparen
+  subcategorieen:
+    - Spaarrekening
+    - Beleggingen
+    - Pensioensparen
+    - Crypto
+
+- hoofdcategorie: Overboekingen
+  soort: transfer
+  subcategorieen:
+    - Eigen rekeningen

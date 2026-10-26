@@ -1,0 +1,33 @@
+# Persoonlijke financiële gegevens: nooit committen
+data/
+inbox/*
+!inbox/.gitkeep
+*.duckdb
+*.duckdb.wal
+exports/
+archief/
+
+# Geheimen: enkel het voorbeeld mag mee
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+
+# Editors en besturingssysteem
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Excel-lockbestanden
+~$*.xlsx

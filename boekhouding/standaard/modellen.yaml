@@ -1,0 +1,215 @@
+# Catalogus van AI-aanbieders en -modellen voor deze app.
+# Stand: 26 oktober 2026. Prijzen in USD per 1 miljoen tokens (input / output), standaardtarief.
+# In de app (pagina "AI-modellen") kan je ook elk ander model invullen of live de modellen van je sleutel ophalen.
+#
+# pdf:          de aanbieder leest PDF's zelf (anders stuurt de app de tekst uit de PDF mee; gescande PDF's lukken dan niet)
+# afbeeldingen: foto's van facturen kunnen gelezen worden
+# rol:          documenten | categorisatie | beide  (waarvoor het model in deze app een goede keuze is)
+# status:       stabiel | preview | beperkt (enkel voor bestaande gebruikers) | uitfasering
+
+gemini:
+  label: Google Gemini
+  sleutel: GEMINI_API_KEY
+  pakket: google-genai
+  pdf: true
+  afbeeldingen: true
+  standaard_documenten: gemini-3.8-flash
+  standaard_categorisatie: gemini-3.5-flash-lite
+  privacy: >-
+    Voor gebruikers in de EER (dus België) gelden ook bij gratis gebruik de datavoorwaarden van de betaalde
+    dienst: prompts en antwoorden worden niet gebruikt om Google-producten te verbeteren (wel kort gelogd tegen misbruik).
+  link: https://ai.google.dev/gemini-api/docs/models
+  modellen:
+    - id: gemini-3.8-flash
+      prijs: [0.75, 3.75]
+      gratis: true
+      rol: documenten
+      status: stabiel
+      context: 1M
+      opmerking: Slimste Flash-model (sep 2026). Prijs verdubbelt op 1/1/2027 naar 1,50 / 7,50.
+    - id: gemini-3.5-flash-lite
+      prijs: [0.30, 2.50]
+      gratis: true
+      rol: beide
+      status: stabiel
+      context: 1M
+      opmerking: Snelst en goedkoop; aangeraden voor nieuwe projecten. Leest ook PDF's.
+    - id: gemini-3.6-flash
+      prijs: [0.75, 3.75]
+      gratis: true
+      rol: documenten
+      status: stabiel
+      context: 1M
+      opmerking: Vorige generatie Flash. Zelfde prijs als 3.8 Flash, dus weinig reden om te kiezen.
+    - id: gemini-3.1-flash-lite
+      prijs: [0.25, 1.50]
+      gratis: true
+      rol: categorisatie
+      status: uitfasering
+      context: 1M
+      opmerking: Goedkoopste 3.x-model, maar wordt op 7/5/2027 uitgeschakeld (opvolger 3.5 Flash-Lite).
+    - id: gemini-4-argon
+      prijs: [2.00, 10.00]
+      gratis: false
+      rol: documenten
+      status: stabiel
+      context: 1M
+      opmerking: Vlaggenschip voor zwaar redeneerwerk; geen gratis tier. Vanaf 1/12/2026 4,00 / 20,00. Overkill voor deze app.
+    - id: gemini-3.1-pro-preview
+      prijs: [2.00, 12.00]
+      gratis: false
+      rol: documenten
+      status: preview
+      context: 1M
+      opmerking: Preview, geen gratis tier, geen uitfaseringsdatum.
+    - id: gemini-3-flash-preview
+      prijs: [0.50, 3.00]
+      gratis: true
+      rol: beide
+      status: preview
+      context: 1M
+      opmerking: Preview; Google raadt 3.6 Flash als opvolger aan.
+    - id: gemini-2.5-flash-lite
+      prijs: [0.10, 0.40]
+      gratis: true
+      rol: categorisatie
+      status: beperkt
+      context: 1M
+      opmerking: Goedkoopst, maar enkel nog beschikbaar voor projecten die het recent gebruikten.
+    - id: gemini-2.5-flash
+      prijs: [0.30, 2.50]
+      gratis: true
+      rol: beide
+      status: beperkt
+      context: 1M
+      opmerking: Enkel voor bestaande gebruikers.
+    - id: gemini-2.5-pro
+      prijs: [1.25, 10.00]
+      gratis: true
+      rol: documenten
+      status: beperkt
+      context: 1M
+      opmerking: Enkel voor bestaande gebruikers.
+
+anthropic:
+  label: Anthropic Claude
+  sleutel: ANTHROPIC_API_KEY
+  pakket: anthropic
+  pdf: true
+  afbeeldingen: true
+  standaard_documenten: claude-sonnet-5-5
+  standaard_categorisatie: claude-haiku-5-5
+  privacy: Zie de commerciële voorwaarden van Anthropic.
+  link: https://platform.claude.com/docs/en/models/overview
+  modellen:
+    - id: claude-haiku-5-5
+      prijs: [0.10, 0.50]
+      rol: beide
+      status: stabiel
+      context: 1M
+      opmerking: Goedkoopste Claude-model ("vanaf"-prijs). Leest PDF's en foto's.
+    - id: claude-sonnet-5-5
+      prijs: [2.00, 10.00]
+      rol: documenten
+      status: stabiel
+      context: 1M
+      opmerking: Sterk in documentextractie.
+    - id: claude-opus-5-5
+      prijs: [4.00, 20.00]
+      rol: documenten
+      status: stabiel
+      context: 1M
+      opmerking: Aanbevolen startpunt van Anthropic voor de meeste werklasten; duurder dan nodig voor deze app.
+    - id: claude-fable-5-1
+      prijs: [10.00, 50.00]
+      rol: documenten
+      status: stabiel
+      context: 1M
+      opmerking: Zwaarste model; voor deze app niet nodig.
+
+openai:
+  label: OpenAI
+  sleutel: OPENAI_API_KEY
+  pakket: openai
+  pdf: true
+  afbeeldingen: true
+  standaard_documenten: gpt-6.1-sol
+  standaard_categorisatie: gpt-6-luna
+  privacy: Zie het databeleid van het OpenAI-platform.
+  link: https://developers.openai.com/api/docs/pricing
+  modellen:
+    - id: gpt-6-luna
+      prijs: [0.10, 0.50]
+      rol: categorisatie
+      status: stabiel
+      opmerking: Goedkoopste GPT-6-model (okt 2026). PDF-ondersteuning hangt af van vision; de app valt zo nodig terug op tekst.
+    - id: gpt-6.1-sol
+      prijs: [2.00, 10.00]
+      rol: beide
+      status: stabiel
+      opmerking: Middenklasse.
+    - id: gpt-6-astra
+      prijs: [10.00, 50.00]
+      rol: documenten
+      status: stabiel
+      opmerking: Krachtigste OpenAI-model; duur.
+
+azure_openai:
+  label: Azure OpenAI (Foundry)
+  sleutel: AZURE_OPENAI_API_KEY
+  extra_omgeving: [AZURE_OPENAI_ENDPOINT]
+  pakket: openai
+  pdf: true
+  afbeeldingen: true
+  standaard_documenten: ""
+  standaard_categorisatie: ""
+  privacy: Data blijft in je eigen Azure-tenant en de regio van je resource (kies een EU-regio).
+  link: https://learn.microsoft.com/azure/foundry/openai/how-to/responses
+  model_is_deployment: true
+  modellen: []
+
+mistral:
+  label: Mistral AI (Frans, EU)
+  sleutel: MISTRAL_API_KEY
+  pakket: httpx
+  pdf: true
+  afbeeldingen: true
+  standaard_documenten: mistral-medium-latest
+  standaard_categorisatie: mistral-small-latest
+  privacy: Europese aanbieder. PDF's en foto's gaan eerst door Mistral OCR en daarna als tekst naar het gekozen model.
+  link: https://docs.mistral.ai/getting-started/models/models_overview
+  modellen:
+    - id: mistral-small-latest
+      prijs: [0.15, 0.60]
+      rol: categorisatie
+      status: stabiel
+      opmerking: Mistral Small 4.
+    - id: mistral-medium-latest
+      prijs: [1.50, 7.50]
+      rol: documenten
+      status: stabiel
+      opmerking: Mistral Medium 3.5. Plus OCR (mistral-ocr-latest) aan 4 USD per 1000 pagina's.
+    - id: mistral-large-latest
+      prijs: [1.36, 4.18]
+      rol: documenten
+      status: stabiel
+      opmerking: Mistral Large 4 (open-weight), goedkoper dan Medium.
+    - id: ministral-8b-latest
+      prijs: [0.15, 0.15]
+      rol: categorisatie
+      status: stabiel
+      opmerking: Klein en goedkoop; minder nauwkeurig.
+
+openai_compatibel:
+  label: OpenAI-compatibel (Ollama, LM Studio, OpenRouter, ...)
+  sleutel: OPENAI_COMPAT_API_KEY
+  sleutel_optioneel: true
+  extra_omgeving: [OPENAI_COMPAT_BASE_URL]
+  pakket: httpx
+  pdf: false
+  afbeeldingen: true
+  standaard_documenten: ""
+  standaard_categorisatie: ""
+  privacy: Met Ollama of LM Studio blijft alles op je eigen pc. Bij OpenRouter gelden de voorwaarden van het gekozen model.
+  link: https://docs.ollama.com/api/openai-compatibility
+  modellen: []

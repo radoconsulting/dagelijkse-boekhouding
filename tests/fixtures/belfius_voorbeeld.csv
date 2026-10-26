@@ -1,0 +1,18 @@
+Boekingsdatum vanaf;01/10/2026
+Boekingsdatum tot en met;31/10/2026
+Bedrag vanaf;
+Bedrag tot en met;
+Rekeninguittrekselnummer vanaf;
+Rekeninguittrekselnummer tot en met;
+Mededeling;
+Naam tegenpartij bevat;
+Rekening tegenpartij;
+Laatste saldo;1.234,56 EUR
+Datum/uur van het laatste saldo;26/10/2026 08:00:00
+;
+Rekening;Boekingsdatum;Rekeninguittrekselnummer;Transactienummer;Rekening tegenpartij;Naam tegenpartij bevat;Straat en nummer;Postcode en plaats;Transactie;Valutadatum;Bedrag;Devies;BIC;Landcode;Mededelingen
+BE34 0680 0000 0002;21/10/2026;2026/10;00010;BE12 7340 0000 0001;Gezin Voorbeeld;;;OVERSCHRIJVING VAN EIGEN REKENING;21/10/2026;500,00;EUR;;BE;Huishoudpot
+BE34 0680 0000 0002;22/10/2026;2026/10;00011;;;;;BETALING MET DEBETKAART DELHAIZE MECHELEN;22/10/2026;-54,20;EUR;;BE;
+BE34 0680 0000 0002;25/10/2026;2026/10;00012;BE15000000001234;Proximus NV;;;EUROPESE DOMICILIERING;25/10/2026;-79,99;EUR;;BE;Factuur 2026/10 internet en mobiel
+BE34 0680 0000 0002;26/10/2026;2026/10;00013;;;;;BETALING MET DEBETKAART APOTHEEK DE LINDE ITEGEM;26/10/2026;-18,40;EUR;;BE;
+BE34 0680 0000 0002;26/10/2026;2026/10;00014;BE88310123456741;Café Den Hoek;;;BETALING VIA PAYCONIQ;26/10/2026;-23,50;EUR;;BE;Verjaardagsdrankje

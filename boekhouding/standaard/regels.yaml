@@ -1,0 +1,228 @@
+# Standaardregels voor Belgische tegenpartijen.
+# Enkel gebruikt om een NIEUWE database te vullen; daarna beheer je regels in de app of in Excel.
+#
+# veld:     alles | tegenpartij_naam | tegenpartij_iban | omschrijving | mededeling
+#           ("alles" = tegenpartij + omschrijving + mededeling samen)
+# patroon:  reguliere expressie, hoofdletter- en accentongevoelig
+# teken:    beide | in | uit   (in = geld komt binnen, uit = geld gaat buiten)
+# prioriteit: lager = eerst getest; de eerste regel die past wint
+# categorie: "Hoofdcategorie / Subcategorie" zoals in categorieen.yaml
+
+# --- Richting bepaalt de betekenis (prioriteit 50) ---------------------------------
+- naam: Ziekenfonds terugbetaling
+  patroon: '\b(mutualiteit|ziekenfonds|mutualite|helan|solidaris|partena ziekenfonds|onafhankelijk ziekenfonds|vnz|de voorzorg|christelijke mutualiteit|liberale mutualiteit)\b'
+  teken: in
+  prioriteit: 50
+  categorie: Inkomsten / Terugbetalingen (ziekenfonds, verzekering)
+- naam: Ziekenfonds lidgeld
+  patroon: '\b(mutualiteit|ziekenfonds|mutualite|helan|solidaris|partena ziekenfonds|onafhankelijk ziekenfonds|vnz|de voorzorg|christelijke mutualiteit|liberale mutualiteit)\b'
+  teken: uit
+  prioriteit: 50
+  categorie: Gezondheid / Ziekenfonds
+- naam: Belastingteruggave
+  patroon: '\b(fod financien|spf finances|federale overheidsdienst financien|belastingdienst)\b'
+  teken: in
+  prioriteit: 50
+  categorie: Inkomsten / Belastingteruggave
+- naam: Personenbelasting
+  patroon: '\b(fod financien|spf finances|federale overheidsdienst financien|personenbelasting|aanslagbiljet|voorafbetaling)\b'
+  teken: uit
+  prioriteit: 50
+  categorie: Financieel / Personenbelasting
+- naam: Verkeersbelasting
+  patroon: 'verkeersbelasting|taxe de circulation'
+  prioriteit: 40
+  categorie: Mobiliteit / Verkeersbelasting
+- naam: Onroerende voorheffing
+  patroon: 'onroerende voorheffing|precompte immobilier'
+  prioriteit: 40
+  categorie: Wonen / Onroerende voorheffing
+- naam: Kindergeld
+  patroon: 'groeipakket|kinderbijslag|kidslife|\binfino\b|myfamily|parentia|allocations familiales'
+  teken: in
+  prioriteit: 50
+  categorie: Inkomsten / Kindergeld (Groeipakket)
+- naam: Kindergeld FONS
+  veld: tegenpartij_naam
+  patroon: '^fons\b'
+  teken: in
+  prioriteit: 50
+  categorie: Inkomsten / Kindergeld (Groeipakket)
+- naam: Loon
+  patroon: '\b(loon|salaris|wedde|salaire|bezoldiging|vakantiegeld|eindejaarspremie|dertiende maand)\b'
+  teken: in
+  prioriteit: 60
+  categorie: Inkomsten / Loon en vergoedingen
+- naam: Interesten
+  patroon: '\b(interest|interesten|basisrente|getrouwheidspremie|aangroeipremie|dividend)\b'
+  teken: in
+  prioriteit: 60
+  categorie: Inkomsten / Interesten en dividenden
+- naam: Bankkosten
+  patroon: 'beheerskosten|bankkosten|kosten rekening|kaartbijdrage|aanrekening kosten|frais de gestion|maandelijkse bijdrage|jaarlijkse bijdrage|kosten verrichtingen|pluspakket|plus-rekening|kosten zichtrekening|bijdrage zichtrekening|beheren vd rek|performance pack|essential pack'
+  teken: uit
+  prioriteit: 60
+  categorie: Financieel / Bankkosten
+- naam: Kredietkaartafrekening
+  # Telt als uitgave zolang de afrekening zelf niet ingelezen is; daarna wordt het een interne overboeking.
+  patroon: 'afrekening.{0,20}(kredietkaart|credit ?card|mastercard|visa)|(kredietkaart|mastercard|visa).{0,20}(afrekening|uitgavenstaat)|uitgaven visa kredietkaart|\bbcc - crelan\b|\bvisa ref \d'
+  teken: uit
+  prioriteit: 60
+  categorie: Diversen / Kredietkaart (zonder detail)
+- naam: Cash afhaling
+  patroon: 'geldopneming|geldopname|cash ?afhaling|retrait|geldautomaat|\batm\b'
+  teken: uit
+  prioriteit: 60
+  categorie: Diversen / Cash afhaling
+- naam: Hypotheek
+  patroon: 'hypothe|woonkrediet|woonlening|aflossing krediet|pret hypothecaire|credit logement'
+  teken: uit
+  prioriteit: 60
+  categorie: Wonen / Hypotheek of huur
+- naam: Huur
+  patroon: '\b(huur|huurgeld|loyer)\b'
+  teken: uit
+  prioriteit: 150
+  categorie: Wonen / Hypotheek of huur
+
+# --- Sparen en beleggen -----------------------------------------------------------
+- naam: Pensioensparen
+  patroon: 'pensioensparen|pensioenspaar|epargne.pension'
+  prioriteit: 70
+  categorie: Sparen en beleggen / Pensioensparen
+- naam: Crypto
+  patroon: '\b(bitvavo|kraken|coinbase|binance|bitstamp|bitpanda)\b'
+  prioriteit: 80
+  categorie: Sparen en beleggen / Crypto
+- naam: Brokers
+  patroon: '\b(degiro|flatex|lynx|bolero|keytrade|saxo|trade republic|meesman|easybanking invest|interactive brokers)\b'
+  prioriteit: 80
+  categorie: Sparen en beleggen / Beleggingen
+- naam: Spaarrekening
+  patroon: 'spaarrekening|spaarboek|compte d.epargne'
+  prioriteit: 90
+  categorie: Sparen en beleggen / Spaarrekening
+
+# --- Wonen ------------------------------------------------------------------------
+- naam: Energie
+  patroon: '\b(engie|electrabel|luminus|eneco|mega|bolt energie|octa\+? energie|elegant|frank energie|totalenergies power|total energies power|fluvius|energie\.be|wase wind)\b'
+  categorie: Wonen / Energie
+- naam: Water
+  patroon: '\b(de watergroep|pidpa|farys|water-link|aquafin|swde|vivaqua)\b'
+  categorie: Wonen / Water
+- naam: Internet en telefonie
+  patroon: '\b(proximus|telenet|orange belgium|mobile vikings|scarlet|voo|digi|edpnet|base company|youfone)\b'
+  categorie: Wonen / Internet en telefonie
+- naam: Doe-het-zelf
+  patroon: '\b(brico|gamma|hubo|leroy merlin|praxis|brico plan-it|intratuin|tuincentrum)\b'
+  categorie: Wonen / Onderhoud en doe-het-zelf
+- naam: Inrichting
+  patroon: '\b(ikea|jysk|casa|blokker|xenos|maisons du monde|kwantum)\b'
+  categorie: Wonen / Inrichting en huishoudtoestellen
+- naam: Afval
+  patroon: '\b(ivarem|ivago|igean|iok afvalbeheer|limburg\.net|incovo|interza|verko|mirom|ivbo|ivvo|imog|recypark|containerpark|afvalbelasting|gemeentebelasting|diftar)\b'
+  categorie: Wonen / Afval en gemeentebelastingen
+
+# --- Boodschappen -----------------------------------------------------------------
+- naam: Supermarkten
+  patroon: '\b(colruyt|delhaize|aldi|lidl|carrefour|albert heijn|okay|spar|intermarche|cora|jumbo|bio-planet|ekoplaza|smatch|prik ?& ?tik)\b'
+  categorie: Boodschappen / Supermarkt
+- naam: Bakker en slager
+  patroon: '\b(bakkerij|bakker|slagerij|beenhouwerij|patisserie|boulangerie|boucherie|traiteur|kaasboer|vishandel)\b'
+  prioriteit: 120
+  categorie: Boodschappen / Bakker, slager en speciaalzaken
+- naam: Drogisterij
+  patroon: '\b(kruidvat|action|hema|di drogist|ici paris xl|planet parfum|yves rocher)\b'
+  categorie: Boodschappen / Drogisterij en huishouden
+
+# --- Mobiliteit -------------------------------------------------------------------
+- naam: Brandstof en laden
+  patroon: '\b(shell|q8|esso|texaco|lukoil|dats ?24|gabriels|power tankstation|allego|ionity|fastned|tesla supercharger|shell recharge|blue corner|totalenergies station)\b'
+  categorie: Mobiliteit / Brandstof en laden
+- naam: Openbaar vervoer
+  patroon: '\b(nmbs|sncb|de lijn|mivb|stib|eurostar)\b'
+  categorie: Mobiliteit / Openbaar vervoer
+- naam: Parkeren
+  patroon: '\b(parking|interparking|4411|be-mobile|q-park|indigo|yespark|parkeren|parkeerautomaat)\b'
+  prioriteit: 120
+  categorie: Mobiliteit / Parkeren en tol
+- naam: Autokeuring en garage
+  patroon: '\b(autokeuring|keuring|autobanden|banden|carglass|midas|euromaster|vulco|garage)\b'
+  prioriteit: 130
+  categorie: Mobiliteit / Onderhoud auto
+
+# --- Gezondheid -------------------------------------------------------------------
+- naam: Apotheek
+  patroon: 'apotheek|pharmacie|pharmacy|farmacie|multipharma'
+  categorie: Gezondheid / Apotheek
+- naam: Dokter en ziekenhuis
+  patroon: 'huisarts|dokterspraktijk|ziekenhuis|kliniek|\buz (gent|leuven|antwerpen|brussel)\b|medisch centrum|kinesitherap|\blabo\b'
+  prioriteit: 120
+  categorie: Gezondheid / Dokter en ziekenhuis
+- naam: Tandarts en optiek
+  patroon: 'tandarts|orthodont|opticien|optiek|pearle|hans anders|specsavers'
+  categorie: Gezondheid / Tandarts en optiek
+
+# --- Kinderen ---------------------------------------------------------------------
+- naam: Kinderopvang
+  patroon: 'kinderopvang|kribbe|creche|onthaalouder|kinderdagverblijf|buitenschoolse opvang'
+  categorie: Kinderen / Kinderopvang
+- naam: School
+  patroon: '\b(school|basisschool|schoolrekening|schoolfactuur|kleuterschool)\b'
+  prioriteit: 150
+  categorie: Kinderen / School
+- naam: Speelgoed
+  patroon: '\b(dreamland|intertoys|toychamp|lego|fun\b|top1toys|maxi toys)\b'
+  categorie: Kinderen / Speelgoed en hobby's
+
+# --- Persoonlijk ------------------------------------------------------------------
+- naam: Kleding en schoenen
+  patroon: '\b(zara|h ?& ?m|primark|c ?& ?a|jbc|zeeman|bel ?& ?bo|we fashion|esprit|vinted|zalando|bershka|pull ?& ?bear|torfs|schoenen|ziengs|scapino|kiabi)\b'
+  categorie: Persoonlijk / Kleding en schoenen
+- naam: Kapper
+  patroon: 'kapper|kapsalon|coiffure|coiffeur|barber|kapster'
+  categorie: Persoonlijk / Kapper en verzorging
+
+# --- Vrije tijd -------------------------------------------------------------------
+- naam: Afhaal en levering
+  patroon: 'deliveroo|uber ?eats|takeaway|just eat|thuisbezorgd'
+  categorie: Vrije tijd / Afhaal en levering
+- naam: Restaurants en cafés
+  patroon: '\b(restaurant|brasserie|bistro|cafe|taverne|frituur|frietkot|pizzeria|pizza|sushi|mcdonald|burger king|exki|panos|starbucks|le pain quotidien|lunchbar)\b'
+  prioriteit: 150
+  categorie: Vrije tijd / Restaurants en cafés
+- naam: Uitstappen
+  patroon: '\b(kinepolis|cinema|bioscoop|pathe|museum|pairi daiza|plopsa|bobbejaanland|walibi|zoo|dierentuin|planckendael|ticketmaster|eventbrite|tickets?)\b'
+  prioriteit: 130
+  categorie: Vrije tijd / Uitstappen en cultuur
+- naam: Reizen
+  patroon: '\b(ryanair|brussels airlines|tui|klm|lufthansa|transavia|booking\.com|airbnb|expedia|hotels\.com|sunweb|center parcs|landal|hotel)\b'
+  prioriteit: 120
+  categorie: Vrije tijd / Reizen en vakantie
+- naam: Abonnementen en streaming
+  patroon: '\b(netflix|spotify|disney|streamz|youtube|apple\.com/bill|itunes|google play|google one|amazon prime|prime video|hbo|deezer|storytel|audible|openai|chatgpt|anthropic|claude\.ai|microsoft 365|dropbox)\b'
+  categorie: Vrije tijd / Abonnementen en streaming
+- naam: Sport
+  patroon: '\b(basic-fit|jims|fitness|decathlon|padel|zwembad|sportoase)\b'
+  categorie: Vrije tijd / Sport
+- naam: Elektronica
+  patroon: '\b(coolblue|mediamarkt|media markt|vanden borre|krefel|fnac|apple store|alternate)\b'
+  categorie: Vrije tijd / Elektronica en gadgets
+
+# --- Financieel, giften, huisdieren, diversen -------------------------------------
+- naam: Verzekeringen
+  patroon: '\b(ethias|ag insurance|axa(?! debetkaart| bank)|baloise|p ?& ?v|allianz|federale verzekering|dvv|kbc verzekeringen|belfius insurance|vivium|yuzzu|corona direct)\b'
+  teken: uit
+  prioriteit: 140
+  categorie: Financieel / Verzekeringen (overige)
+- naam: Goede doelen
+  patroon: '11\.11\.11|artsen zonder grenzen|unicef|rode kruis|kom op tegen kanker|natuurpunt|amnesty|oxfam|greenpeace|\bwwf\b'
+  teken: uit
+  categorie: Giften en cadeaus / Goede doelen
+- naam: Huisdieren
+  patroon: 'dierenarts|dierenkliniek|tom ?& ?co|maxi zoo|zooplus|dierenspeciaalzaak'
+  categorie: Huisdieren / Voeding en verzorging
+- naam: Online aankopen
+  patroon: '\b(bol\.com|bol com|amazon|temu|aliexpress|shein|paypal)\b'
+  prioriteit: 180
+  categorie: Diversen / Online aankopen
